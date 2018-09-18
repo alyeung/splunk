@@ -1,4 +1,9 @@
-# setup Docker
+# resources:
+https://gist.github.com/jwkidd3 / splunk
+https://github.com/jwkidd3/splunk
+Reference card: https://github.com/alyeung/splunk/blob/master/RefCard.pdf
+
+# setup Azure
 1) login to portal.azure.com
 2) Create a resource group: ie: table5ayrg
 3) Add a vm CoreOS Linux (Stable) to resource group.  Set a standard VM login (ie ops), and password.
@@ -8,6 +13,8 @@
 7) Choose the VM, select connect, and copy SSH command 
 8) open Azure cloud shell, now paste SSH command ie: ssh ops@_____ where blank is the IP of the VM
 9) now grab the splunk docker container: sudo docker pull splunk/splunk/
+
+# setup docker
 10) sudo docker run -v /home/ops:/data -p 8000:8000 -d -e SPLUNK_START_ARGS="--accept-license --seed-password "standard password" splunk/splunk
 11) we just mapped /home/ops to /data for splunk, -e is for daemon, and "standard password" is the admin password for this splunk instance.
 12) sudo docker ps to list containers
@@ -18,17 +25,17 @@
 17) prices.csv allows you to add price data to existing dataset
 18) when done, stop your VM in azure.
 
-To restart your docker image, list out dockers:
+# To restart your docker image, list out dockers:
 sudo docker ps -a
 sudo docker start <container id>
 
-To clean up dockers
+# To clean up dockers
 sudo docker ps -a
 sudo docker rm -f <container id>
 
 # splunk
 
-##Some Splunk Query Syntax:
+# Some Splunk Query Syntax:
 
 Query to find top to create a pie chart
 
