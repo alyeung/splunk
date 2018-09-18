@@ -99,3 +99,6 @@ index=main sourcetype=log4j perfType=MEMORY |eval mem_used_pc=round((mem_used/me
 
 Counts exceeding access to DB:
 index=main sourcetype=log4j perfType="DB" | eval threshold=con_total/100*70 |where con_used>=threshold | timechart span=4h count(con_used) as CountOverThreshold
+
+make a dial / rangemap
+index=main sourcetype=access_combined | stats dc(JSESSIONID) as count| rangemap field=count low=0-1 elevated=2-5 default=severe
