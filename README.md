@@ -41,3 +41,13 @@ sourcetype="access_combined_*" status=200|chart count as views count(eval(action
 
 remove nulls: 
 sourcetype=access_* |timechart count(eval(action="purchase")) by productName usenull=f useother=f
+
+have your results show up as a table:
+index=main sourcetype="access_combined"|table *
+
+or specifiy column name: 
+index=main sourcetype="access_combined" | Table JSESSIONID
+
+table but subtracting out columns:
+index=main sourcetype="access_combined" | fields - index, sourcetype, source, date, _raw, lincecount, punct | table*
+
