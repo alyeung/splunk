@@ -70,3 +70,7 @@ Check referral domains, and rank + - ascending descending:
 index=main sourcetype=access_combined|stats dc(clientip) as Referals by referer_domain|sort - Referals
 
 index=main sourcetype=access_combined uri_path="/addItem" OR uri_path="/checkout" | chart count(eval(like(status, "2%"))) as Success, count(eval(like(status,"4%") Or like(status,"5%"))) as Error by uri_path|addcoltotals label=Total labelfield=uri_path
+
+Time Chart
+index=main sourcetype="access_combined" | timechart span=6h avg(response) AS avgResp | eval avgResp=round(avgResp/1000,2)
+
