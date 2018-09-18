@@ -65,3 +65,6 @@ index=main sourcetype="access_combined" | eval browser=useragent|replace *Firefo
 Search by OS:
 
 index=main sourcetype="access_combined" | eval os=useragent|replace *Macintosh* with Mac, *Windows* with Windows, *Linux* with Linux in os|top limit=5 useother=t os
+
+Check referral domains, and rank + - ascending descending:
+index=main sourcetype=access_combined|stats dc(clientip) as Referals by referer_domain|sort - Referals
