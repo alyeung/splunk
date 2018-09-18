@@ -34,3 +34,7 @@ status!=200 action=purchase | stats count by clientip, productId | sort by count
 big shopper query with charting:
 
 sourcetype="access_combined_*" status=200|chart count as views count(eval(action="addtocart")) as addtocart count(eval(action="purchase")) as purchases by productName | rename productName as "Product Name", views as "Views", addtocard as "Adds to Cart", purchases as "Purchases"
+
+overlay table:
+
+sourcetype="access_combined_*" status=200|chart count as views count(eval(action="addtocart")) as addtocart count(eval(action="purchase")) as purchases by productName | eval viewstopurchases=(purchases/views)*100 | eval carttopurchases=(purchases/addtocart)*100| table productName views addtocart purchases viewstopurchases carttopurchases | rename productName as "Product Name", views as "Views", addtocart as "Adds to Cart", purchases as "Purchases"
