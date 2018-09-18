@@ -106,3 +106,8 @@ index=main sourcetype=access_combined | stats dc(JSESSIONID) as count| rangemap 
 Session analysis, then set time period!
 
 index=main sourcetype="access_combined" | transaction JSESSIONID|stats avg(duration) AS avg_session_time
+
+Average checkout time:
+
+index=main sourcetype="access_combined" | transaction JSESSIONID startswith="GET /home" endswith="checkout"|stats avg(duration) as avg_checkout_time
+
