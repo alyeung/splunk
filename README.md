@@ -111,3 +111,6 @@ Average checkout time:
 
 index=main sourcetype="access_combined" | transaction JSESSIONID startswith="GET /home" endswith="checkout"|stats avg(duration) as avg_checkout_time
 
+maxevents look at 300, maxpause to clarify whether it is same or different session, maxspan is looking at most 30m conversion window
+
+index=main sourcetype="access_combined" | transaction JSESSIONID startswith="GET /home" endswith="checkout" maxpause=30s maxspan=29m maxevents=300|stats avg(duration) as avg_checkout_time
