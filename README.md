@@ -91,3 +91,7 @@ ThreadID can be used to calculate beginning and end
 max span duration:
 
 index=main sourcetype=log4j | transaction maxspan=4h threadId |timechart span=6h max(duration) as MAX, mean(duration) as mean, min(duration) as min
+
+Memory remaining:
+
+index=main sourcetype=log4j perfType=MEMORY |eval mem_used_pc=round((mem_used/mem_total)*100) | eval mem_remaining_pc=(100-mem_used_pc)|timechart span=15m avg(mem_used_pc) as mem_used avg(mem_remaining_pc) as mem_remaining
