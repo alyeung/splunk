@@ -78,3 +78,7 @@ index=main sourcetype="access_combined" | timechart span=6h avg(response) AS avg
 Dedup!!
 
 index=main sourcetype="access_combined" status=200 uri_path="/viewItem" OR uri_path="/addItem" |dedup cookie uri_path item | top item
+
+rank descending 
+
+index=main sourcetype="access_combined" status=200 uri_path="/viewItem" OR uri_path="/addItem" |dedup cookie uri_path item | chart count(eval(uri_path="/viewItem")) as view, count(eval(uri_path="/addItem")) as add by item|sort - view| head 10
