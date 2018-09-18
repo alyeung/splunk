@@ -38,3 +38,6 @@ sourcetype="access_combined_*" status=200|chart count as views count(eval(action
 overlay table:
 
 sourcetype="access_combined_*" status=200|chart count as views count(eval(action="addtocart")) as addtocart count(eval(action="purchase")) as purchases by productName | eval viewstopurchases=(purchases/views)*100 | eval carttopurchases=(purchases/addtocart)*100| table productName views addtocart purchases viewstopurchases carttopurchases | rename productName as "Product Name", views as "Views", addtocart as "Adds to Cart", purchases as "Purchases"
+
+remove nulls: 
+sourcetype=access_* |timechart count(eval(action="purchase")) by productName usenull=f useother=f
