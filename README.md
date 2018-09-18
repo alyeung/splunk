@@ -102,3 +102,7 @@ index=main sourcetype=log4j perfType="DB" | eval threshold=con_total/100*70 |whe
 
 make a dial / rangemap
 index=main sourcetype=access_combined | stats dc(JSESSIONID) as count| rangemap field=count low=0-1 elevated=2-5 default=severe
+
+Session analysis, then set time period!
+
+index=main sourcetype="access_combined" | transaction JSESSIONID|stats avg(duration) AS avg_session_time
