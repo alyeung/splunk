@@ -95,3 +95,7 @@ index=main sourcetype=log4j | transaction maxspan=4h threadId |timechart span=6h
 Memory remaining:
 
 index=main sourcetype=log4j perfType=MEMORY |eval mem_used_pc=round((mem_used/mem_total)*100) | eval mem_remaining_pc=(100-mem_used_pc)|timechart span=15m avg(mem_used_pc) as mem_used avg(mem_remaining_pc) as mem_remaining
+
+
+Counts exceeding access to DB:
+index=main sourcetype=log4j perfType="DB" | eval threshold=con_total/100*70 |where con_used>=threshold | timechart span=4h count(con_used) as CountOverThreshold
