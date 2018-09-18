@@ -114,3 +114,7 @@ index=main sourcetype="access_combined" | transaction JSESSIONID startswith="GET
 maxevents look at 300, maxpause to clarify whether it is same or different session, maxspan is looking at most 30m conversion window
 
 index=main sourcetype="access_combined" | transaction JSESSIONID startswith="GET /home" endswith="checkout" maxpause=30s maxspan=29m maxevents=300|stats avg(duration) as avg_checkout_time
+
+Use time to limit subsearches, use earlier=main search results are matched to later results of subsearch
+
+index=main sourcetype="access_combined" | join JSESSIONID usetime=true earlier=false [search index=main sourcetype=log4j|transaction threadId maxspan=5m|eval JSESSIONID=sessionId] |stats avg(duration) as avg_time
