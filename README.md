@@ -82,3 +82,7 @@ index=main sourcetype="access_combined" status=200 uri_path="/viewItem" OR uri_p
 rank descending 
 
 index=main sourcetype="access_combined" status=200 uri_path="/viewItem" OR uri_path="/addItem" |dedup cookie uri_path item | chart count(eval(uri_path="/viewItem")) as view, count(eval(uri_path="/addItem")) as add by item|sort - view| head 10
+
+calculations in table and using head
+
+index=main sourcetype="access_combined" status=200 uri_path="/viewItem" OR uri_path="/addItem" |dedup cookie uri_path item | chart count(eval(uri_path="/viewItem")) as view, count(eval(uri_path="/addItem")) as add by item|sort - view| head 10|eval cart_conversion=round(add/view*100)."%"
