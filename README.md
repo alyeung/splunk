@@ -57,3 +57,7 @@ index=main sourcetype="access_combined" | fields - index, sourcetype, source, da
 Top Query:
 
 index=main sourcetype="access_combined" | top limit=20 uri_path
+
+Investigate browsers top:
+
+index=main sourcetype="access_combined" | eval browser=useragent|replace *Firefox* with Firefox, *Chrome* with Chrome, *MSIE* with IE, *Version*Safari with Safari, *Opera* with Opera |top limit=5 useother=t browser
