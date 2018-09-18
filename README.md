@@ -61,3 +61,7 @@ index=main sourcetype="access_combined" | top limit=20 uri_path
 Investigate browsers top:
 
 index=main sourcetype="access_combined" | eval browser=useragent|replace *Firefox* with Firefox, *Chrome* with Chrome, *MSIE* with IE, *Version*Safari with Safari, *Opera* with Opera |top limit=5 useother=t browser
+
+Search by OS:
+
+index=main sourcetype="access_combined" | eval os=useragent|replace *Macintosh* with Mac, *Windows* with Windows, *Linux* with Linux in os|top limit=5 useother=t os
