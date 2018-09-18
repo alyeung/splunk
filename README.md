@@ -86,3 +86,8 @@ index=main sourcetype="access_combined" status=200 uri_path="/viewItem" OR uri_p
 calculations in table and using head
 
 index=main sourcetype="access_combined" status=200 uri_path="/viewItem" OR uri_path="/addItem" |dedup cookie uri_path item | chart count(eval(uri_path="/viewItem")) as view, count(eval(uri_path="/addItem")) as add by item|sort - view| head 10|eval cart_conversion=round(add/view*100)."%"
+
+ThreadID can be used to calculate beginning and end
+max span duration:
+
+index=main sourcetype=log4j | transaction maxspan=4h threadId |timechart span=6h max(duration) as MAX, mean(duration) as mean, min(duration) as min
