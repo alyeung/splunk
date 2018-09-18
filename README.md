@@ -1,3 +1,31 @@
+# setup Docker
+1) login to portal.azure.com
+2) Create a resource group: ie: table5ayrg
+3) Add a vm CoreOS Linux (Stable) to resource group.  Set a standard VM login (ie ops), and password.
+4) Add a network security group to your resource group.  ie: table5ayvm-nsg
+5) inbound security rule, Port_8000, port 800, any allow
+6) inbound security rule, SSH, port 22, any, allow
+7) Choose the VM, select connect, and copy SSH command 
+8) open Azure cloud shell, now paste SSH command ie: ssh ops@_____ where blank is the IP of the VM
+9) now grab the splunk docker container: sudo docker pull splunk/splunk/
+10) sudo docker run -v /home/ops:/data -p 8000:8000 -d -e SPLUNK_START_ARGS="--accept-license --seed-password "standard password" splunk/splunk
+11) we just mapped /home/ops to /data for splunk, -e is for daemon, and "standard password" is the admin password for this splunk instance.
+12) sudo docker ps to list containers
+13) now logon to splunk instance at your above VM ip in a web browser , ie 157.56.176.102:8000
+14) login to splunk
+15) upload test dataset: tutorial_data.zip
+16) OpsDataGen.spl is the custom app to install.  I think this relates to log4j logging for JS.  Log4net would be C#.
+17) prices.csv allows you to add price data to existing dataset
+18) when done, stop your VM in azure.
+
+To restart your docker image, list out dockers:
+sudo docker ps -a
+sudo docker start <container id>
+
+To clean up dockers
+sudo docker ps -a
+sudo docker rm -f <container id>
+
 # splunk
 
 ##Some Splunk Query Syntax:
